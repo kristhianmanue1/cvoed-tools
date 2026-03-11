@@ -1,0 +1,189 @@
+:root {
+  /* Institucional */
+  --inst-guinda: #691C32;
+  --inst-guinda-dark: #4A1023;
+  --inst-dorado: #BC955C;
+  --inst-verde-imss: #006657;
+  --inst-negro: #161A1D;
+  /* Funcional ISO 3864 (Triage) */
+  --fn-rojo: #C41E3A;
+  --fn-rojo-bg: #FDF0F0;
+  --fn-rojo-border: #E8A0A0;
+  --fn-amarillo: #D4940A;
+  --fn-amarillo-bg: #FFF8E7;
+  --fn-amarillo-border: #F0D070;
+  --fn-verde: #1B7340;
+  --fn-verde-bg: #F0F8F4;
+  --fn-azul: #1A5276;
+  --fn-azul-bg: #EDF4FA;
+  --fn-azul-border: #A8C8E0;
+  --fn-negro: #1A1A2E;
+  --fn-gris: #4A5568;
+  /* Estructura */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F8FA;
+  --bg-tertiary: #EDF0F4;
+  --text-primary: #1A1A2E;
+  --text-secondary: #4A5568;
+  --text-muted: #6B7280;
+  --border-default: #D1D5DB;
+  --border-light: #E5E7EB;
+  /* Tipografia */
+  --font-primary: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Code", "SF Mono", "Consolas", ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Utils */
+.hidden {
+  display: none !important;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(135deg, var(--inst-guinda) 0%, var(--inst-guinda-dark) 40%, var(--inst-verde-imss) 100%);
+  color: #FFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+}
+
+.status-bar {
+  display: flex;
+  gap: 15px;
+  font-size: 0.85rem;
+}
+
+/* Modals & Containers */
+.main-container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--bg-primary);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background: var(--inst-guinda);
+  color: white;
+}
+
+/* Triage Buttons */
+.btn-triage {
+  min-width: 80px;
+  min-height: 80px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-triage-rojo {
+  background: var(--fn-rojo);
+  color: #FFFFFF;
+}
+
+.btn-triage-amarillo {
+  background: var(--fn-amarillo);
+  color: #1A1A1A;
+}
+
+.btn-triage-verde {
+  background: var(--fn-verde);
+  color: #FFFFFF;
+}
+
+.btn-triage-negro {
+  background: var(--fn-negro);
+  color: #FFFFFF;
+}
+
+.btn-triage:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-triage:active {
+  transform: scale(0.98);
+}
+
+/* Print Styles */
+@media print {
+  @page {
+    size: letter portrait;
+    margin: 10mm;
+  }
+
+  body {
+    background-color: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .navbar,
+  .btn,
+  #search-input {
+    display: none !important;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid var(--border-light);
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+  }
+
+  /* Print Badge Mode */
+  body.print-badge-mode>*:not(#print-badge) {
+    display: none !important;
+  }
+
+  body.print-badge-mode #print-badge {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}

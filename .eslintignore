@@ -1,0 +1,8 @@
+node_modules/
+coverage/
+dist/
+*.min.js
+*.wasm
+tools/build.js
+src/shared/js/sql-wasm.js
+src/shared/js/xlsx.full.min.js

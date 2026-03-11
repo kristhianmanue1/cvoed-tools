@@ -1,0 +1,40 @@
+# Dependencias
+node_modules/
+package-lock.json
+
+# Archivos generados
+dist/
+coverage/
+*.log
+eslint-report.json
+
+# Configuración local
+config/env/.env.local
+.env
+.env.local
+
+# Archivos temporales
+*.backup
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Directorios temporales
+imgtemp/
+scripts/tmp/
+
+# Tests coverage
+tests/coverage/
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

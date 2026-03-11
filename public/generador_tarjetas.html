@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas de Acción Nivel Avanzado - CPES-IMSS FIFA 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        .header .context {
+            font-size: 0.95em;
+            opacity: 0.85;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* CONTROLES */
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: #C41E3A;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #a01830;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+        }
+
+        .btn-secondary {
+            background: #4A5568;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #3a4557;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #22863a;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #1a6428;
+        }
+
+        /* GRID DE TARJETAS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        /* TARJETA */
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            border-left: 6px solid #691C32;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .card.avanzado {
+            border-left-color: #691C32;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #691C32 0%, #8b2443 100%);
+            color: white;
+            padding: 20px;
+        }
+
+        .card-header h2 {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+        }
+
+        .card-header .rol {
+            font-size: 0.95em;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+
+        .card-header .bloque {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            background: #f5f5f5;
+            padding: 12px 15px;
+            border-left: 4px solid #C41E3A;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            margin-left: -25px;
+            margin-right: -25px;
+            padding-left: 20px;
+        }
+
+        .alert-critical {
+            background: #fee;
+            border: 2px solid #C41E3A;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .alert-critical::before {
+            content: "⚠️ CRÍTICO: ";
+            font-weight: 700;
+            color: #C41E3A;
+        }
+
+        /* PASOS */
+        .steps {
+            list-style: none;
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 18px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border-left: 3px solid #C41E3A;
+        }
+
+        .step-number {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            background: #C41E3A;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-action {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .step-time {
+            font-size: 0.85em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .step.critico {
+            background: #fff3cd;
+            border-left-color: #ff6b35;
+        }
+
+        /* TABLA */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+
+        th {
+            background: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #C41E3A;
+            color: #333;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        /* CAMPOS EDITABLES */
+        .field-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+
+        .field-hint {
+            font-size: 0.85em;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.95em;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #C41E3A;
+            box-shadow: 0 0 5px rgba(196, 30, 58, 0.2);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* REVERSO */
+        .card-reverso {
+            background: #f9f9f9;
+            padding: 15px;
+            border-top: 2px solid #e5e5e5;
+            margin-top: 15px;
+            margin-left: -25px;
+            margin-right: -25px;
+            margin-bottom: -25px;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-bottom: 25px;
+        }
+
+        .reverso-title {
+            font-weight: 700;
+            color: #C41E3A;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            min-width: 100px;
+            color: #333;
+        }
+
+        /* ACCIONES DE TARJETA */
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.85em;
+            flex: 1;
+            text-align: center;
+        }
+
+        /* GUÍA */
+        .guide {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .guide h2 {
+            color: #691C32;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .guide-section {
+            margin-bottom: 25px;
+        }
+
+        .guide-section h3 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .guide-section p {
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .guide-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .guide-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .guide-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #C41E3A;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #691C32;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: #000;
+        }
+
+        /* IMPRESIÓN */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .controls, .guide, .footer {
+                display: none;
+            }
+
+            .card {
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .card-header h2 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🏥 Tarjetas de Acción - Nivel Avanzado</h1>
+        <p class="subtitle">CPES-IMSS | Preparativos Hospitalarios Copa Mundial FIFA 2026</p>
+        <p class="context">
+            <strong>Contexto:</strong> Hospital de Nunca Jamás | 220 camas | 35% pacientes con discapacidad | 
+            Volcán activo | Amenaza QBRNE | Copa Mundial en curso
+        </p>
+    </div>
+
+    <!-- CONTROLES -->
+    <div class="controls">
+        <button class="btn btn-primary" onclick="exportarPDF()">📥 Descargar PDF</button>
+        <button class="btn btn-secondary" onclick="imprimirTarjetas()">🖨️ Imprimir</button>
+        <button class="btn btn-success" onclick="mostrarGuia()">📖 Ver Guía de Llenado</button>
+        <button class="btn btn-secondary" onclick="restaurarDatos()">🔄 Restaurar Datos Muestra</button>
+    </div>
+
+    <!-- GUÍA (INICIALMENTE OCULTA) -->
+    <div id="guiaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="cerrarGuia()">&times;</span>
+            <div class="guide">
+                <h2>📖 Guía de Llenado - Tarjetas de Acción Nivel Avanzado</h2>
+
+                <div class="guide-section">
+                    <h3>¿Qué es una Tarjeta de Acción?</h3>
+                    <p>
+                        Documento de referencia rápida que define exactamente qué hacer en caso de emergencia, 
+                        quién lo hace, cuándo, con qué recursos y a quién reportar. Es una herramienta de ACCIÓN, 
+                        no de estudio.
+                    </p>
+                </div>
+
+                <div class="guide-section">
+                    <h3>¿A quién va dirigida?</h3>
+                    <ul class="guide-list">
+                        <li><strong>Nivel Avanzado:</strong> Directores, Comandantes, Facilitadores, Comités, Evaluadores</li>
+                        <li><strong>Contexto:</strong> Toman decisiones complejas con información incompleta</li>
+                        <li><strong>Competencia esperada:</strong> Diseña, conduce y evalúa ejercicios; forma a otros</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h3>Cómo llenar cada sección</h3>
+                    <ul class="guide-list">
+                        <li><strong>Rol:</strong> Nombre exacto del puesto (ej. "Director de Hospital")</li>
+                        <li><strong>Función SCI-H:</strong> Cuál es su función en el Sistema de Comando (Mando, Operaciones, etc.)</li>
+                        <li><strong>Bloque/Guía:</strong> De cuál guía operativa es responsable (PH-RED, SMV-H, EVAC-H, etc.)</li>
+                        <li><strong>Primeros Pasos:</strong> Máximo 5 acciones en los primeros 15 minutos. Verbos en imperativo.</li>
+                        <li><strong>Recursos que activa:</strong> Qué áreas/personas llama en primer término</li>
+                        <li><strong>Criterios de escalamiento:</strong> Cuándo pedir ayuda a nivel superior</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h3>Reglas de Oro</h3>
+                    <ul class="guide-list">
+                        <li>🎯 Una idea central por paso (no párrafos largos)</li>
+                        <li>⏱️ Los primeros 15 minutos son críticos — prioriza activaciones</li>
+                        <li>📞 Siempre incluir: a quién llamas, en qué orden, para qué</li>
+                        <li>⚠️ El texto debe ser comprensible bajo presión y estrés</li>
+                        <li>🔄 Revisar anualmente o tras cada simulacro/evento real</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h3>Diferencia entre Niveles</h3>
+                    <ul class="guide-list">
+                        <li><strong>Base:</strong> "Haz esto ahora" — acciones operativas inmediatas</li>
+                        <li><strong>Intermedio:</strong> "Toma esta decisión" — criterios y opciones</li>
+                        <li><strong>Avanzado:</strong> "Diseña, conduce, evalúa" — estrategia, facilitación, mejora</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h3>Ejemplo: Director de Hospital (Avanzado)</h3>
+                    <p><strong>Paso 1 (0-2 min):</strong> "Asume el mando. Ubícate en el Puesto de Comando o designa Comandante del Incidente."</p>
+                    <p><strong>Paso 2 (2-5 min):</strong> "Evalúa la situación: ¿amenaza? ¿magnitud? ¿recursos suficientes?"</p>
+                    <p><strong>Paso 3 (5-10 min):</strong> "Activa el SCI-H. Delega funciones: Operaciones, Logística, Comunicación, Seguridad."</p>
+                    <p><strong>Paso 4 (10-12 min):</strong> "Notifica al CVOED y autoridades externas (Protección Civil, CRUM)."</p>
+                    <p><strong>Paso 5 (Continuo):</strong> "Monitorea decisiones operativas. Aprueba recursos adicionales. Evita intervención en tácticas."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRID DE TARJETAS -->
+    <div class="cards-grid">
+
+        <!-- TARJETA 1: DIRECTOR / COMANDANTE INCIDENTE -->
+        <div class="card avanzado">
+            <div class="card-header">
+                <div class="rol">Función SCI-H: MANDO</div>
+                <h2>Director de Hospital /<br>Comandante del Incidente</h2>
+                <span class="bloque">B1 · PH-RED + SCI-H</span>
+            </div>
+            <div class="card-body">
+                <div class="alert-critical">
+                    Asume el mando. Tu decisión define la respuesta institucional completa.
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⚡ PRIMEROS 15 MINUTOS</div>
+                    <ul class="steps">
+                        <li class="step critico">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-action">Asume el mando. Establece o identifica el Puesto de Comando (PC).</div>
+                                <div class="step-time">0–2 min</div>
+                            </div>
+                        </li>
+                        <li class="step critico">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-action">Evalúa: ¿qué amenaza? ¿magnitud? ¿recursos suficientes en sitio?</div>
+                                <div class="step-time">2–5 min</div>
+                            </div>
+                        </li>
+                        <li class="step critico">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-action">Activa SCI-H. Convoca a Jefes de Operaciones, Logística, Comunicación y Seguridad.</div>
+                                <div class="step-time">5–8 min</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-action">Notifica al CVOED (Centro de Valoración y Orientación de Emergencias Prehospitalarias).</div>
+                                <div class="step-time">8–10 min</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-action">Aprueba primer Plan de Acción del Incidente (PAI). Monitorea ejecución sin intervenir tácticamente.</div>
+                                <div class="step-time">Continuo</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📞 ACTIVA / NOTIFICA (En Orden)</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr>
+                                <th>Orden</th>
+                                <th>A quién</th>
+                                <th>Qué informar</th>
+                            </tr>
+                            <tr>
+                                <td>1ª</td>
+                                <td><input type="text" value="Jefe de Urgencias" onchange="guardarDatos()"></td>
+                                <td><input type="text" value="Activación SCI-H inmediata" onchange="guardarDatos()"></td>
+                            </tr>
+                            <tr>
+                                <td>2ª</td>
+                                <td><input type="text" value="CVOED / CRUM" onchange="guardarDatos()"></td>
+                                <td><input type="text" value="Tipo evento, magnitud, capacidad disponible" onchange="guardarDatos()"></td>
+                            </tr>
+                            <tr>
+                                <td>3ª</td>
+                                <td><input type="text" value="Administración / Finanzas" onchange="guardarDatos()"></td>
+                                <td><input type="text" value="Gestión de recursos, costos, contrataciones" onchange="guardarDatos()"></td>
+                            </tr>
+                            <tr>
+                                <td>4ª</td>
+                                <td><input type="text" value="Comunicaciones / Vocero" onchange="guardarDatos()"></td>
+                                <td><input type="text" value="Contenido de mensajes a medios y público" onchange="guardarDatos()"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⬆️ ESCALA (CUÁNDO PEDIR REFUERZO)</div>
+                    <div class="field-group">
+                        <label>Criterio 1: Recursos insuficientes</label>
+                        <input type="text" value="Más del 80% de camas censables ocupadas o SMV con >50 víctimas esperadas" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Criterio 2: Servicios críticos amenazados</label>
+                        <input type="text" value="Falla prolongada de energía (>4h) | Fuga de gas | Contaminación QBRNE | Ciberseguridad" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Criterio 3: Colapso del sistema</label>
+                        <input type="text" value="Evacuación total | Pérdida de comunicaciones | Personal lesionado | Dificultad para retener víctimas" onchange="guardarDatos()">
+                    </div>
+                </div>
+
+                <div class="card-reverso">
+                    <div class="reverso-title">📋 DIRECTORIOS DE EMERGENCIA</div>
+                    <div class="contact-item">
+                        <span class="contact-label">CVOED:</span>
+                        <input type="text" value="(55) 5265-8000" onchange="guardarDatos()">
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Protección Civil:</span>
+                        <input type="text" value="911 o número local" onchange="guardarDatos()">
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Directores Servicios:</span>
+                        <input type="text" value="Ver directorio hospitalario actualizado" onchange="guardarDatos()">
+                    </div>
+                </div>
+            </div>
+            <div class="card-actions">
+                <button class="btn btn-small btn-secondary" onclick="editarTarjeta(this)">✏️ Editar</button>
+                <button class="btn btn-small btn-success" onclick="exportarTarjeta(this)">💾 Guardar</button>
+            </div>
+        </div>
+
+        <!-- TARJETA 2: VOCERO ÚNICO -->
+        <div class="card avanzado">
+            <div class="card-header">
+                <div class="rol">Función SCI-H: INFORMACIÓN PÚBLICA</div>
+                <h2>Vocero Único</h2>
+                <span class="bloque">B3 · SMV-H</span>
+            </div>
+            <div class="card-body">
+                <div class="alert-critical">
+                    Tu comunicación define la percepción pública de la crisis. Una sola voz, mensaje consistente.
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⚡ PRIMEROS 15 MINUTOS</div>
+                    <ul class="steps">
+                        <li class="step critico">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-action">Actívate. Viste uniforme identificable (chaleco, gafete VOCERO).</div>
+                                <div class="step-time">0–2 min</div>
+                            </div>
+                        </li>
+                        <li class="step critico">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-action">Contacta al Comandante del Incidente: obtén situación, límites de información a divulgar.</div>
+                                <div class="step-time">2–5 min</div>
+                            </div>
+                        </li>
+                        <li class="step critico">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-action">Establece Centro de Información (sala de prensa o punto seguro designado).</div>
+                                <div class="step-time">5–10 min</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-action">Prepara primer comunicado: qué pasó, qué hace el hospital, acciones de seguridad pública.</div>
+                                <div class="step-time">10–13 min</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-action">Difunde por todos canales. Actualiza cada 30 min o cuando hay cambios operacionales significativos.</div>
+                                <div class="step-time">Continuo</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📝 ESTRUCTURA DEL MENSAJE</div>
+                    <div class="field-group">
+                        <label>Componente 1: Hechos confirmados (QUÉ PASÓ)</label>
+                        <textarea onchange="guardarDatos()">Ejemplo: "A las 14:30 horas, el Hospital de Nunca Jamás recibió alerta de saldo masivo de víctimas por incidente en estadio cercano."</textarea>
+                    </div>
+                    <div class="field-group">
+                        <label>Componente 2: Respuesta hospitalaria (QUÉ HACE EL HOSPITAL)</label>
+                        <textarea onchange="guardarDatos()">Ejemplo: "El hospital activó su Plan de Respuesta a Emergencias. Se han abierto áreas de expansión, activado servicios críticos y convocado personal de refuerzo."</textarea>
+                    </div>
+                    <div class="field-group">
+                        <label>Componente 3: Información de seguridad pública (RECOMENDACIONES)</label>
+                        <textarea onchange="guardarDatos()">Ejemplo: "Se solicita a la población no acercarse al área del incidente. Solo personal autorizado en la zona de descontaminación."</textarea>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⬆️ ESCALA (CUÁNDO ESCALAR A AUTORIDADES SUPERIORES)</div>
+                    <div class="field-group">
+                        <label>Situación 1: Evento QBRNE confirmado o potencial</label>
+                        <input type="text" value="Informar inmediatamente a Secretaría de Salud + CVOED + Protección Civil" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Situación 2: Evacuación total o daño severo a infraestructura</label>
+                        <input type="text" value="Comunicado oficial de Dirección General + Autoridades locales" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Situación 3: Incidente intencional / seguridad pública comprometida</label>
+                        <input type="text" value="Coordinación con Seguridad Pública + Fuerzas de Seguridad locales" onchange="guardarDatos()">
+                    </div>
+                </div>
+
+                <div class="card-reverso">
+                    <div class="reverso-title">📢 CANALES DE DIFUSIÓN</div>
+                    <div class="contact-item">
+                        <span class="contact-label">Medios nacionales:</span>
+                        <input type="text" value="TV, radio, prensa digital (número de sala de prensa)" onchange="guardarDatos()">
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Redes sociales:</span>
+                        <input type="text" value="Twitter, Facebook, WhatsApp institucional" onchange="guardarDatos()">
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Comunicación interna:</span>
+                        <input type="text" value="Radio hospital, aviso por altavoces, notificación digital al personal" onchange="guardarDatos()">
+                    </div>
+                </div>
+            </div>
+            <div class="card-actions">
+                <button class="btn btn-small btn-secondary" onclick="editarTarjeta(this)">✏️ Editar</button>
+                <button class="btn btn-small btn-success" onclick="exportarTarjeta(this)">💾 Guardar</button>
+            </div>
+        </div>
+
+        <!-- TARJETA 3: FACILITADOR CPES -->
+        <div class="card avanzado">
+            <div class="card-header">
+                <div class="rol">Función: CAPACITACIÓN Y FORMACIÓN</div>
+                <h2>Facilitador CPES Designado</h2>
+                <span class="bloque">TRANSVERSAL · TODOS LOS BLOQUES</span>
+            </div>
+            <div class="card-body">
+                <div class="alert-critical">
+                    Eres el puente entre la teoría y la práctica. Tu rol es formar, evaluar y mejorar continuamente.
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⚡ FASE DE PREPARACIÓN (Semanas Previas)</div>
+                    <ul class="steps">
+                        <li class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-action">Diagnóstico: evalúa nivel actual de competencias del personal (Base/Intermedio/Avanzado).</div>
+                                <div class="step-time">Semana 1-2</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-action">Diseña taller adaptado al nivel y contexto local (Hospital de Nunca Jamás como caso anclado).</div>
+                                <div class="step-time">Semana 2-3</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-action">Prepara materiales: diapositivas, casos ABP, tarjetas de acción, listas de verificación.</div>
+                                <div class="step-time">Semana 3-4</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-action">Convoca participantes. Verifica asistencia confirmada (rol, servicio, experiencia previa).</div>
+                                <div class="step-time">Semana 4</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⚡ DURANTE EL TALLER (Ejecución)</div>
+                    <ul class="steps">
+                        <li class="step critico">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-action">Apertura: presenta objetivos, contexto FIFA 2026, Hospital de Nunca Jamás como problema central.</div>
+                                <div class="step-time">0–15 min</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-action">Modulo 1: concepto clave. Máx. 20 min de exposición + actividad participativa.</div>
+                                <div class="step-time">15–50 min</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-action">Caso ABP o pregunta Desafío. El grupo resuelve / debate (no exponen respuesta correcta solos).</div>
+                                <div class="step-time">50–85 min</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-action">Recapitulación: 3 mensajes clave que se llevan. Reflexión sobre aplicación en su hospital.</div>
+                                <div class="step-time">85–90 min</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📊 POST-TALLER (Evaluación y Mejora)</div>
+                    <div class="field-group">
+                        <label>Evaluación Inmediata:</label>
+                        <input type="text" value="Encuesta de satisfacción (5 preguntas simples) + observación de participación" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Evaluación a 30 días:</label>
+                        <input type="text" value="Caso aplicado: ¿qué cambió en su hospital? ¿qué obstáculos encontraron?" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Plan de Mejora:</label>
+                        <input type="text" value="Ajusta contenidos, materiales, metodología basado en retroalimentación del grupo" onchange="guardarDatos()">
+                    </div>
+                </div>
+
+                <div class="card-reverso">
+                    <div class="reverso-title">🎓 PRINCIPIOS PEDAGÓGICOS (RECUERDA SIEMPRE)</div>
+                    <div class="contact-item">
+                        <span class="contact-label">Andragogía:</span>
+                        <input type="text" value="Aprenden desde su experiencia. Conéctate con urgencias, guardias, protocolos que ya usan." onchange="guardarDatos()">
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">ABP:</span>
+                        <input type="text" value="Problema real > Contenido listado. Usa Nunca Jamás como motor del aprendizaje." onchange="guardarDatos()">
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Bloom:</span>
+                        <input type="text" value="Mínimo Aplicar (nivel 3). Nunca te quedes en Recordar o Comprender." onchange="guardarDatos()">
+                    </div>
+                </div>
+            </div>
+            <div class="card-actions">
+                <button class="btn btn-small btn-secondary" onclick="editarTarjeta(this)">✏️ Editar</button>
+                <button class="btn btn-small btn-success" onclick="exportarTarjeta(this)">💾 Guardar</button>
+            </div>
+        </div>
+
+        <!-- TARJETA 4: MIEMBRO COEH -->
+        <div class="card avanzado">
+            <div class="card-header">
+                <div class="rol">Función: COORDINACIÓN Y LIDERAZGO</div>
+                <h2>Miembro del Comité Hospitalario<br>de Emergencias (COEH)</h2>
+                <span class="bloque">TRANSVERSAL · GESTIÓN DEL RIESGO</span>
+            </div>
+            <div class="card-body">
+                <div class="alert-critical">
+                    El Comité es el órgano de dirección institucional. Ustedes articulan, aprueban y monitorean.
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📅 REUNIONES ORDINARIAS (Mínimo Mensuales)</div>
+                    <ul class="steps">
+                        <li class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-action">Revisa el PH-RED: ¿está actualizado? ¿refleja amenazas actuales (FIFA 2026)?</div>
+                                <div class="step-time">Punto 1</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-action">Evalúa capacitación: ¿personal capacitado? ¿nuevos servidores? ¿necesidad de refresco?</div>
+                                <div class="step-time">Punto 2</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-action">Programa simulacros: ¿qué amenaza testear? ¿cuándo? ¿quién dirige? ¿evaluadores?</div>
+                                <div class="step-time">Punto 3</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-action">Monitorea acciones correctivas: ¿se implementaron las mejoras del último simulacro?</div>
+                                <div class="step-time">Punto 4</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-action">Reporta a la Dirección: estado de preparativos, brechas críticas, solicitud de recursos.</div>
+                                <div class="step-time">Punto 5</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🔍 EVALUACIÓN ANUAL (ISH + INGRID-H)</div>
+                    <div class="field-group">
+                        <label>ISH - Índice de Seguridad Hospitalaria:</label>
+                        <input type="text" value="Evalúa 4 módulos: seguridad estructural, no estructural, gestión emergencias, capacidad respuesta" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>INGRID-H - Inclusión Gestión Riesgo:</label>
+                        <input type="text" value="¿Incluimos personas con discapacidad? ¿En planes? ¿En ejercicios? ¿En evaluación?" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Frecuencia de simulacros:</label>
+                        <input type="text" value="Mínimo 2 al año (1 gabinete, 1 campo). Pre-FIFA 2026: mensual o bimestral." onchange="guardarDatos()">
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⬆️ ESCALA (PROBLEMAS CRÍTICOS QUE REQUIEREN ACCIÓN INMEDIATA)</div>
+                    <div class="field-group">
+                        <label>Umbral 1: PH-RED desactualizado o inexistente</label>
+                        <input type="text" value="Orden inmediata de actualización con fecha límite y responsable" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Umbral 2: <20% de personal capacitado</label>
+                        <input type="text" value="Programa urgente de capacitación antes de evento crítico" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Umbral 3: ISH <0.40 (seguridad baja)</label>
+                        <input type="text" value="Plan de mejora urgente con presupuesto asignado por Dirección" onchange="guardarDatos()">
+                    </div>
+                </div>
+
+                <div class="card-reverso">
+                    <div class="reverso-title">👥 COMPOSICIÓN RECOMENDADA DEL COEH</div>
+                    <div class="contact-item">
+                        <span class="contact-label">Coordinador:</span>
+                        <input type="text" value="Director o persona con designación oficial y tiempo principal" onchange="guardarDatos()">
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Representantes:</span>
+                        <input type="text" value="Urgencias, UCI, Cirugía, Medicina, Enfermería, Mantenimiento, Seguridad, Administración, Comunicación" onchange="guardarDatos()">
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Observadores:</span>
+                        <input type="text" value="Representante de personas con discapacidad, comunidad, sindicato (según contexto)" onchange="guardarDatos()">
+                    </div>
+                </div>
+            </div>
+            <div class="card-actions">
+                <button class="btn btn-small btn-secondary" onclick="editarTarjeta(this)">✏️ Editar</button>
+                <button class="btn btn-small btn-success" onclick="exportarTarjeta(this)">💾 Guardar</button>
+            </div>
+        </div>
+
+        <!-- TARJETA 5: COORDINADOR OOAD/UMAE -->
+        <div class="card avanzado">
+            <div class="card-header">
+                <div class="rol">Función: CAPACITACIÓN EN CASCADA</div>
+                <h2>Coordinador de OOAD/UMAE<br>(Forma a otros hospitales)</h2>
+                <span class="bloque">TRANSVERSAL · MAESTRÍA EN FACILITACIÓN</span>
+            </div>
+            <div class="card-body">
+                <div class="alert-critical">
+                    Tu rol multiplica el impacto. Formas a facilitadores que forman personal de otros hospitales.
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🎯 CICLO ANUAL DE CASCADA (OOAD → Hospitales Adscritos)</div>
+                    <ul class="steps">
+                        <li class="step critico">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-action">Diagnóstico de hospitales: ¿nivel actual? ¿amenazas locales? ¿capacidad de formación?</div>
+                                <div class="step-time">Enero-Febrero</div>
+                            </div>
+                        </li>
+                        <li class="step critico">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-action">Forma a facilitadores CPES (3-5 por OOAD). Taller intensivo: PH-RED, SCI-H, andragogía, simulacros.</div>
+                                <div class="step-time">Marzo-Abril</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-action">Acompaña primeros talleres: observa, retroalimenta, mejora en vivo con los facilitadores nuevos.</div>
+                                <div class="step-time">Mayo-Junio</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-action">Programa simulacros multi-hospital: coordinación, estándares, lecciones aprendidas compartidas.</div>
+                                <div class="step-time">Julio-Agosto</div>
+                            </div>
+                        </li>
+                        <li class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-action">Evaluación integrada: ISH en hospitales. Reporte a nivel central. Plan de mejora conjunta.</div>
+                                <div class="step-time">Septiembre-Octubre</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📊 INDICADORES DE ÉXITO</div>
+                    <div class="field-group">
+                        <label>Meta 1: % de personal capacitado por hospital</label>
+                        <input type="text" value="Mínimo 80% de servicios críticos en cada hospital (urgencias, UCI, cirugia)" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Meta 2: Simulacros ejecutados</label>
+                        <input type="text" value="Mínimo 2 por hospital antes de Copa Mundial (1 gabinete, 1 campo)" onchange="guardarDatos()">
+                    </div>
+                    <div class="field-group">
+                        <label>Meta 3: Mejoras implementadas</label>
+                        <input type="text" value=">70% de acciones correctivas de simulacros ejecutadas documentadamente" onchange="guardarDatos()">
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🔗 COORDINACIÓN CON NIVEL CENTRAL

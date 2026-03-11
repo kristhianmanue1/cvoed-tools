@@ -1,0 +1,131 @@
+/* Estilos mejorados para indicadores visuales y UX */
+
+/* Indicador de guardado */
+.save-status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.save-status.saving {
+  background: var(--fn-amarillo-bg);
+  color: var(--fn-amarillo);
+}
+
+.save-status.saved {
+  background: var(--fn-verde-bg);
+  color: var(--fn-verde);
+}
+
+/* Mensaje de "No hay pacientes" */
+.no-patients-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.no-patients-message i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+/* Notificaciones temporales */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 2000;
+  animation: slideIn 0.3s ease;
+  max-width: 400px;
+}
+
+.notification.success {
+  border-left: 4px solid var(--fn-verde);
+}
+
+.notification.error {
+  border-left: 4px solid var(--fn-rojo);
+}
+
+.notification.info {
+  border-left: 4px solid var(--fn-amarillo);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Botones mejorados */
+.btn {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Tabla mejorada para pacientes cuando está vacía */
+.patients-table-wrapper {
+  position: relative;
+}
+
+.patients-table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.patients-table-wrapper td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.patients-table-wrapper th {
+  padding: 10px;
+  background: var(--inst-guinda);
+  color: white;
+  text-align: left;
+}

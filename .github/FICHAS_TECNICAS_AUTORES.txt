@@ -1,0 +1,241 @@
+================================================================================
+                    FICHAS TÉCNICAS DE AUTORES
+                         CVOED-TOOLS Project
+================================================================================
+
+Proyecto: Suite Portátil de Herramientas Hospitalarias para Emergencias y
+          Desastres
+
+NATURALEZA DEL PROYECTO:
+=========================
+Este es un PROYECTO PERSONAL de los autores.
+
+CVOED-Tools es una iniciativa independiente desarrollada basándose en el
+conocimiento adquirido durante el CURSO DE PREPARACIÓN PARA EVENTOS EN
+EMERGENCIAS Y DESASTRES de la CPES (Coordinación de Proyectos Especiales
+en Salud).
+
+AVISO IMPORTANTE:
+=================
+Este proyecto NO es una publicación oficial del IMSS. Es una herramienta
+educativa independiente creada para apoyar la preparación hospitalaria ante
+emergencias, inspirada en la capacitación recibida a través de programas de
+CPES.
+
+Contexto: Copa Mundial FIFA 2026
+Licencia: Apache License 2.0
+Fecha: Marzo 2026
+
+================================================================================
+AUTOR 1: Dra. Carla Abril Perez Becerril
+================================================================================
+
+DATOS PERSONALES:
+--------------
+Nombre Completo: Carla Abril Perez Becerril
+Título: Dra. (Doctora en Medicina)
+Especialidad: Medicina de Emergencia y Desastres
+Nacionalidad: Mexicana
+
+CONTACTO:
+--------
+Email: carpeb05@yahoo.com.mx
+
+ROL EN EL PROYECTO:
+------------------
+• Responsable de Contenido Clínico
+• Validación Médica de Prototipos
+• Diseño de Escenarios de Simulacros
+• Especificación de Requerimientos Clínicos
+• Aseguramiento de Calidad Médica
+
+COMPONENTES DESARROLLADOS:
+--------------------------
+1. ECE-DES - Expediente Clínico Electrónico para Desastres
+   - Diseño de flujo de trabajo clínico
+   - Especificación de campos de triage START
+   - Validación de protocolos médicos
+
+2. Generador de Tarjetas SCI-H
+   - Protocolos del Sistema de Comando de Incidentes Hospitalario
+   - Especificación de roles y responsabilidades
+
+3. Simulador de Emergencias
+   - Diseño de 3 escenarios clínicos realistas
+   - Especificación de dinámicas de emergencia
+
+4. Guía Operativa Hospital de Nunca Jamás
+   - Contenido médico completo
+   - Referencias a guías oficiales CPES-IMSS
+
+FORMACIÓN ACADÉMICA:
+-------------------
+• Médico Cirujano
+• Especialidad en Medicina de Emergencia y Desastres
+• Certificaciones en:
+  - Soporte Vital Avanzado en Trauma (ATLS)
+  - Soporte Vital Avanzado en Cardiología (ACLS)
+  - Manejo de Saldo Masivo de Víctimas (SMV-H)
+
+EXPERIENCIA:
+------------
+• Experiencia en gestión de emergencias hospitalarias
+• Participación en simulacros a nivel nacional
+• Colaboradora en guías CPES-IMSS
+• Ponente en congresos de medicina de emergencias
+
+================================================================================
+AUTOR 2: Kristhian Manuel Jiménez Sánchez
+================================================================================
+
+DATOS PERSONALES:
+--------------
+Nombre Completo: Kristhian Manuel Jiménez Sánchez
+Título: Ing. (Ingeniero en Sistemas Computacionales)
+Especialidad: Desarrollo Frontend y Sistemas de Información Hospitalaria
+Nacionalidad: Mexicana
+
+CONTACTO:
+--------
+Email: krisnova@hotmail.com
+
+ROL EN EL PROYECTO:
+------------------
+• Lead Developer & Software Architect
+• Arquitectura Técnica del Sistema
+• Desarrollo de Componentes Interactivos
+• Implementación de Stack Tecnológico
+• Optimización de Rendimiento
+
+COMPONENTES DESARROLLADOS:
+--------------------------
+1. ECE-DES - Expediente Clínico Electrónico para Desastres
+   - Arquitectura SQLite in-browser (sql.js)
+   - Implementación de IndexedDB para persistencia
+   - Sistema de exportación Excel (SheetJS)
+   - UI/UX con WCAG 2.2 AAA compliance
+
+2. ECE-DES Dashboard
+   - Motor de gráficas en tiempo real
+   - Sistema de métricas y KPIs
+   - Integración con base de datos ECE-DES
+
+3. ECE-DES Tarjetas
+   - Motor de impresión de tarjetas START
+   - Sistema de código de barras
+   - Generación de plantillas A4/Carta
+
+4. Generador de Tarjetas SCI-H
+   - Sistema de tokens v2.0
+   - Doble codificación color + forma
+   - Motor de impresión dinámico
+
+5. Simulador de Emergencias
+   - Sistema de color dual RAMS-IVE Clinical
+   - Modo oscuro/claro con WCAG AAA
+   - Síntesis de voz SCI-H (Web Speech API)
+   - Game loop para dinámicas realistas
+
+6. Guía Operativa Hospital de Nunca Jamás
+   - Formato digital interactivo
+   - Sistema de navegación por secciones
+   - Responsive design
+
+7. Portal Principal (index.html)
+   - Navegación a las 6 herramientas
+   - Diseño responsive
+   - Metadatos de autores y licencia
+
+FORMACIÓN ACADÉMICA:
+-------------------
+• Ingeniero en Sistemas Computacionales
+• Especialización en:
+  - Desarrollo Frontend (HTML5, CSS3, JavaScript ES2022+)
+  - Bases de Datos NoSQL e In-Browser
+  - Accesibilidad Web (WCAG 2.2)
+  - Progressive Web Apps (PWA)
+
+HABILIDADES TÉCNICAS:
+---------------------
+• Lenguajes: JavaScript, Python, SQL, HTML5, CSS3
+• Frameworks: Vue.js, React (conocimiento)
+• Bases de Datos: SQLite, PostgreSQL, IndexedDB, localStorage
+• Herramientas: Git, GitHub Actions, Jest, Webpack/Babel
+• Accesibilidad: WCAG 2.2 AAA, ARIA, Screen Readers
+• Testing: Unit Testing, Integration Testing, E2E Testing
+
+PROYECTOS ANTERIORES:
+--------------------
+• Desarrollo de sistemas de información hospitalaria
+• Implementación de sistemas de triage digital
+• Optimización de rendimiento web
+• Consultoría en accesibilidad web
+
+================================================================================
+COLABORACIÓN CONJUNTA
+================================================================================
+
+Sinergia:
+Ambos autores colaboraron estrechamente para garantizar que las herramientas
+fueran tanto médicamente precisas como técnicamente robustas.
+
+Proceso de Desarrollo:
+1. Dra. Carla Abril Perez especificaba requerimientos clínicos
+2. Kristhian Jiménez diseñaba la arquitectura técnica
+3. Iteración continua con validación médica
+4. Pruebas en contextos reales de simulacros
+5. Ajustes basados en feedback de personal hospitalario
+
+Resultado:
+Suite de 6 herramientas interactivas 100% portátiles, sin dependencias
+operativas, con validación clínica y compliance de accesibilidad.
+
+================================================================================
+CONTEXTO DEL PROYECTO
+================================================================================
+
+BASE DEL PROYECTO:
+----------------
+Este proyecto se desarrolló como INICIATIVA PERSONAL de los autores,
+basándose en el conocimiento y capacitación adquiridos durante:
+
+CURSO DE PREPARACIÓN PARA EVENTOS EN EMERGENCIAS Y DESASTRES
+Organizado por: CPES (Coordinación de Proyectos Especiales en Salud)
+Contexto: Preparación para la Copa Mundial FIFA 2026
+
+IMPORTANTE:
+- NO es un proyecto oficial del IMSS
+- Es una herramienta educativa independiente
+- Creada para apoyar la preparación hospitalaria
+- Inspirada en la capacitación CPES
+
+AGRADECIMIENTOS:
+===============
+- CPES-IMSS por la capacitación en preparación para emergencias y desastres
+- OPS/OMS por las guías técnicas de referencia
+- Hospital de Nunca Jamás como escenario de simulación inspirado en el curso CPES
+- Todo el personal que participó en simulacros de prueba
+
+================================================================================
+METADATOS DEL DOCUMENTO
+================================================================================
+
+Fecha de Creación: 11 de marzo de 2026
+Última Modificación: 11 de marzo de 2026
+Versión: 1.0.0
+Licencia: Apache License 2.0
+Autores: Dra. Carla Abril Perez Becerril & Kristhian Manuel Jiménez Sánchez
+Naturaleza: Iniciativa personal basada en curso CPES
+
+Para referenciar este proyecto:
+  CVOED-Tools (2026). Suite Portátil de Herramientas Hospitalarias para
+  Emergencias y Desastres. Iniciativa personal basada en curso CPES.
+  Dra. Carla Abril Perez Becerril & Kristhian Manuel Jiménez Sánchez.
+  Copa Mundial FIFA 2026. Apache License 2.0.
+  https://github.com/IMSS-CPES/cvoed-tools
+
+Contacto:
+  Dra. Carla Abril Perez: carpeb05@yahoo.com.mx
+  Kristhian Manuel Jiménez: krisnova@hotmail.com
+
+================================================================================
