@@ -106,6 +106,8 @@ Todas las herramientas son **archivos HTML autocontenidos**:
 
 Todas las 6 herramientas en un solo archivo. ¡Listo para usar!
 
+> **📢 Actualización (2026-03-12):** ZIP actualizado con estructura corregida. Todos los archivos ahora están en la raíz (sin subdirectorios anidados). El simulador funciona correctamente.
+
 **Instrucciones:**
 1. 📥 Clic en descargar
 2. 📂 Descomprimir ZIP en escritorio o carpeta
