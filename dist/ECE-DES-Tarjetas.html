@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECE-DES | Tarjetas Triage Físicas</title>
+<style>
+:root {
+/* Institucional */
+--inst-guinda: #691C32;
+--inst-guinda-dark: #4A1023;
+--inst-dorado: #BC955C;
+--inst-verde-imss: #006657;
+--inst-negro: #161A1D;
+/* Funcional ISO 3864 (Triage) */
+--fn-rojo: #C41E3A;
+--fn-rojo-bg: #FDF0F0;
+--fn-rojo-border: #E8A0A0;
+--fn-amarillo: #D4940A;
+--fn-amarillo-bg: #FFF8E7;
+--fn-amarillo-border: #F0D070;
+--fn-verde: #1B7340;
+--fn-verde-bg: #F0F8F4;
+--fn-azul: #1A5276;
+--fn-azul-bg: #EDF4FA;
+--fn-azul-border: #A8C8E0;
+--fn-negro: #1A1A2E;
+--fn-gris: #4A5568;
+/* Estructura */
+--bg-primary: #FFFFFF;
+--bg-secondary: #F7F8FA;
+--bg-tertiary: #EDF0F4;
+--text-primary: #1A1A2E;
+--text-secondary: #4A5568;
+--text-muted: #6B7280;
+--border-default: #D1D5DB;
+--border-light: #E5E7EB;
+/* Tipografia */
+--font-primary: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+--font-mono: "Cascadia Code", "SF Mono", "Consolas", ui-monospace, monospace;
+}
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+body {
+font-family: var(--font-primary);
+background-color: var(--bg-tertiary);
+color: var(--text-primary);
+}
+/* Utils */
+.hidden {
+display: none !important;
+}
+/* Navbar */
+.navbar {
+background: linear-gradient(135deg, var(--inst-guinda) 0%, var(--inst-guinda-dark) 40%, var(--inst-verde-imss) 100%);
+color: #FFF;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem;
+}
+.brand {
+font-weight: bold;
+font-size: 1.25rem;
+letter-spacing: 0.5px;
+}
+.status-bar {
+display: flex;
+gap: 15px;
+font-size: 0.85rem;
+}
+/* Modals & Containers */
+.main-container {
+padding: 1.5rem;
+max-width: 1200px;
+margin: 0 auto;
+}
+.card {
+background: var(--bg-primary);
+border-radius: 8px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+padding: 2rem;
+margin-bottom: 1rem;
+}
+.btn {
+padding: 10px 20px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-weight: bold;
+}
+.btn-primary {
+background: var(--inst-guinda);
+color: white;
+}
+/* Triage Buttons */
+.btn-triage {
+min-width: 80px;
+min-height: 80px;
+font-size: 16px;
+font-weight: 700;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 4px;
+transition: transform 0.1s, box-shadow 0.1s;
+}
+.btn-triage-rojo {
+background: var(--fn-rojo);
+color: #FFFFFF;
+}
+.btn-triage-amarillo {
+background: var(--fn-amarillo);
+color: #1A1A1A;
+}
+.btn-triage-verde {
+background: var(--fn-verde);
+color: #FFFFFF;
+}
+.btn-triage-negro {
+background: var(--fn-negro);
+color: #FFFFFF;
+}
+.btn-triage:hover {
+transform: scale(1.05);
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.btn-triage:active {
+transform: scale(0.98);
+}
+/* Print Styles */
+@media print {
+@page {
+size: letter portrait;
+margin: 10mm;
+}
+body {
+background-color: white;
+-webkit-print-color-adjust: exact;
+print-color-adjust: exact;
+}
+.navbar,
+.btn,
+#search-input {
+display: none !important;
+}
+.card {
+box-shadow: none;
+border: 1px solid var(--border-light);
+margin-bottom: 20px;
+page-break-inside: avoid;
+}
+/* Print Badge Mode */
+body.print-badge-mode>*:not(#print-badge) {
+display: none !important;
+}
+body.print-badge-mode #print-badge {
+display: block !important;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+}
+}
+</style>
+<style>
+/* CSS Específico para impresión A4 de 4 Tarjetas */
+body {
+background-color: #f0f2f5;
+margin: 0;
+padding: 20px;
+font-family: var(--font-primary), Arial, sans-serif;
+-webkit-print-color-adjust: exact;
+print-color-adjust: exact;
+}
+.action-bar {
+background: white;
+padding: 15px;
+border-radius: 8px;
+margin-bottom: 20px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.page-container {
+width: 210mm;
+min-height: 297mm;
+background: white;
+margin: 0 auto;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+padding: 10mm;
+display: grid;
+grid-template-columns: 1fr 1fr;
+grid-template-rows: 1fr 1fr;
+gap: 10mm;
+box-sizing: border-box;
+}
+.triage-card {
+border: 2px dashed #999;
+border-radius: 4px;
+display: flex;
+flex-direction: column;
+position: relative;
+overflow: hidden;
+}
+.card-header {
+background-color: var(--inst-guinda);
+color: white;
+text-align: center;
+font-weight: bold;
+padding: 10px;
+font-size: 1.2rem;
+text-transform: uppercase;
+}
+.card-hole {
+position: absolute;
+top: 15px;
+left: 50%;
+transform: translateX(-50%);
+width: 10px;
+height: 10px;
+background: white;
+border: 1px solid #333;
+border-radius: 50%;
+}
+.card-body {
+padding: 15px;
+flex: 1;
+font-size: 0.9rem;
+}
+.form-row {
+margin-bottom: 12px;
+display: flex;
+align-items: baseline;
+}
+.form-row label {
+font-weight: bold;
+margin-right: 5px;
+min-width: 60px;
+color: #333;
+}
+.form-row .line {
+flex: 1;
+border-bottom: 1px solid #666;
+margin-left: 5px;
+height: 14px;
+}
+.checkbox-group {
+display: flex;
+gap: 15px;
+}
+.checkbox {
+display: flex;
+align-items: center;
+gap: 5px;
+}
+.box {
+width: 14px;
+height: 14px;
+border: 1px solid #333;
+display: inline-block;
+}
+.human-body-diagram {
+border: 1px solid #ccc;
+height: 100px;
+margin: 10px 0;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #999;
+font-size: 0.8rem;
+background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" fill="none" stroke="%23cccccc" stroke-width="2"><circle cx="50" cy="20" r="10"/><path d="M50 30 v50 M30 50 h40 M35 130 l15-50 l15 50"/></svg>');
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
+}
+.triage-stripes {
+display: flex;
+flex-direction: column;
+margin-top: auto;
+}
+.stripe {
+color: white;
+font-weight: bold;
+text-align: center;
+padding: 8px 0;
+text-transform: uppercase;
+font-size: 1rem;
+border-top: 2px dashed rgba(255, 255, 255, 0.5);
+letter-spacing: 2px;
+}
+.stripe.green {
+background-color: var(--fn-verde);
+}
+.stripe.yellow {
+background-color: var(--fn-amarillo);
+color: black;
+}
+.stripe.red {
+background-color: var(--fn-rojo);
+text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+.stripe.black {
+background-color: var(--fn-negro);
+}
+.cut-instruction {
+text-align: center;
+font-size: 0.7rem;
+color: #666;
+padding: 5px 0;
+background: #fff;
+border-top: 1px dashed #999;
+border-bottom: 1px dashed #999;
+margin-bottom: 2px;
+}
+@media print {
+body {
+background-color: white;
+padding: 0;
+}
+.action-bar {
+display: none !important;
+}
+.page-container {
+box-shadow: none;
+margin: 0;
+width: 100%;
+height: 100%;
+page-break-after: always;
+}
+}
+</style>
+</head>
+<body>
+<div class="action-bar">
+<div>
+<h2 style="margin: 0; color: var(--inst-guinda);">Generador de Tarjetas Físicas START</h2>
+<p style="margin: 5px 0 0 0; color: #666; font-size: 0.9rem;">Imprime esta plantilla en hoja Tamaño Carta /
+A4 y recorta por las líneas punteadas.</p>
+</div>
+<div style="display: flex; gap: 10px;">
+<a href="ECE-DES.html" class="btn"
+style="background: var(--bg-tertiary); color: var(--text-primary); text-decoration: none;">🔙 Volver al
+Sistema</a>
+<button class="btn" onclick="window.print()"
+style="background: var(--inst-verde-imss); color: white; border: none; font-size: 1rem; padding: 10px 20px; cursor: pointer; border-radius: 4px;">🖨️
+IMPRIMIR PLANTILLA</button>
+</div>
+</div>
+<!-- Generamos un template de tarjeta para inyectarlo 4 veces con JS o directamente en HTML -->
+<div id="print-area">
+<!-- JS inyectará las páginas necesarias aquí. Por default, 1 página demostrativa. -->
+</div>
+<script>
+const cardHTML = `
+<div class="triage-card">
+<div class="card-header">
+<span style="font-size:0.8rem; display:block; opacity:0.8;">TRIAGE START</span>
+ETIQUETA MÉDICA
+</div>
+<div class="card-hole"></div>
+<div class="card-body">
+<div class="form-row">
+<label>FOLIO:</label>
+<div class="line" style="flex: 2;"></div>
+<label style="margin-left: 10px; min-width:auto;">EDAD:</label>
+<div class="line" style="flex: 0.5;"></div>
+</div>
+<div class="form-row">
+<label>NOMBRE:</label>
+<div class="line"></div>
+</div>
+<div class="form-row">
+<label>SEXO:</label>
+<div class="checkbox-group">
+<div class="checkbox"><div class="box"></div> M</div>
+<div class="checkbox"><div class="box"></div> F</div>
+</div>
+</div>
+<div class="human-body-diagram">
+<!-- SVG Body Diagram (CSS Background) -->
+<span style="align-self: flex-end; margin-bottom: 5px; background: rgba(255,255,255,0.8); padding: 0 5px;">Marcar Lesiones</span>
+</div>
+<div class="form-row" style="margin-top: 15px;">
+<label>SIGNOS:</label>
+</div>
+<div style="display:flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 10px;">
+<div>FR: _____</div>
+<div>Pulso: _____</div>
+<div>Consc.: _____</div>
+</div>
+<div class="form-row">
+<label style="font-size:0.8rem;">ALERGIAS/NOTAS:</label>
+</div>
+<div class="line" style="margin-bottom: 8px;"></div>
+<div class="line"></div>
+</div>
+<div class="cut-instruction">✂️ Rasgue por línea punteada inferior hasta el Triage asignado ✂️</div>
+<div class="triage-stripes">
+<div class="stripe green">VERDE (MENOR)</div>
+<div class="stripe yellow">AMARILLO (URGENTE)</div>
+<div class="stripe red">ROJO (INMEDIATO)</div>
+<div class="stripe black">NEGRO (FALLECIDO)</div>
+</div>
+</div>
+`;
+// Renderizar 1 hoja
+const page = document.createElement('div');
+page.className = 'page-container';
+page.innerHTML = cardHTML + cardHTML + cardHTML + cardHTML;
+document.getElementById('print-area').appendChild(page);
+</script>
+</body>
+</html>

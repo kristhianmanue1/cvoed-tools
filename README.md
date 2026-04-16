@@ -232,6 +232,13 @@ Sistema de entrenamiento:
 
 ---
 
+## 📁 Documentación Histórica
+
+Los reportes, análisis y diagnósticos históricos del proyecto se encuentran organizados en:
+
+- `docs/reports/` — Reportes de lanzamiento, verificación y análisis.
+- `docs/diagnostics/` — Diagnósticos técnicos y correcciones aplicadas.
+
 ## 👥 Autores
 
 **Dra. Carla Abril Perez Becerril**

@@ -27,7 +27,6 @@
 # ============================================
 src/
 tests/
-docs/
 config/
 scripts/
 public/
@@ -39,5 +38,17 @@ node_modules/
 package*.json
 *.md
 *.txt
+
+# ============================================
+# PERMITIR: Documentación histórica en docs/
+# ============================================
+!docs/
+!docs/**/
+!docs/**/*.md
+!docs/**/*.txt
+
+# ============================================
+# Re-permitir README.md y .gitignore tras *.md
+# ============================================
 !README.md
 !.gitignore

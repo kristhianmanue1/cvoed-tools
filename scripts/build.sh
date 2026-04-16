@@ -18,10 +18,10 @@ NC='\033[0m' # No Color
 
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TOOLS_DIR="$SCRIPT_DIR/tools"
-SRC_DIR="$SCRIPT_DIR/src"
-DIST_DIR="$SCRIPT_DIR/dist"
-BUILD_LOG="$SCRIPT_DIR/build.log"
+TOOLS_DIR="$SCRIPT_DIR/../tools"
+SRC_DIR="$SCRIPT_DIR/../src"
+DIST_DIR="$SCRIPT_DIR/../dist"
+BUILD_LOG="$SCRIPT_DIR/../build.log"
 
 # Parse arguments
 ENV=${1:-production}
@@ -147,6 +147,67 @@ build_simulador_html() {
 }
 
 # ============================================
+# TRASLADOS AEREOS BUILD FUNCTION
+# ============================================
+
+build_traslados_aereos() {
+    log "Building Traslados Aereos..."
+
+    local TRASLADOS_DIR="$SRC_DIR/traslados-aereos"
+    local OUTPUT_HTML="$DIST_DIR/Traslados-Aereos.html"
+
+    if [ ! -d "$TRASLADOS_DIR" ]; then
+        warning "Traslados Aereos directory not found at $TRASLADOS_DIR"
+        return 1
+    fi
+
+    # Copy main HTML
+    cp "$TRASLADOS_DIR/index.html" "$OUTPUT_HTML"
+    log "  Copied Traslados-Aereos.html"
+
+    # Create asset directories
+    mkdir -p "$DIST_DIR/css"
+    mkdir -p "$DIST_DIR/js/services"
+    mkdir -p "$DIST_DIR/data"
+
+    # Copy CSS
+    if [ -f "$TRASLADOS_DIR/css/styles.css" ]; then
+        cp "$TRASLADOS_DIR/css/styles.css" "$DIST_DIR/css/styles.css"
+        log "  Copied css/styles.css"
+    fi
+
+    # Copy JS files
+    if [ -f "$TRASLADOS_DIR/js/app.js" ]; then
+        cp "$TRASLADOS_DIR/js/app.js" "$DIST_DIR/js/app.js"
+        log "  Copied js/app.js"
+    fi
+
+    if [ -f "$TRASLADOS_DIR/js/catalogo-data.js" ]; then
+        cp "$TRASLADOS_DIR/js/catalogo-data.js" "$DIST_DIR/js/catalogo-data.js"
+        log "  Copied js/catalogo-data.js"
+    fi
+
+    # Copy services
+    if [ -d "$TRASLADOS_DIR/js/services" ]; then
+        for file in "$TRASLADOS_DIR/js/services"/*.js; do
+            if [ -f "$file" ]; then
+                cp "$file" "$DIST_DIR/js/services/"
+                log "  Copied js/services/$(basename "$file")"
+            fi
+        done
+    fi
+
+    # Copy data
+    if [ -f "$TRASLADOS_DIR/data/catalogo-unidades.json" ]; then
+        cp "$TRASLADOS_DIR/data/catalogo-unidades.json" "$DIST_DIR/data/catalogo-unidades.json"
+        log "  Copied data/catalogo-unidades.json"
+    fi
+
+    log "  Built Traslados-Aereos.html with assets"
+    return 0
+}
+
+# ============================================
 # CSS EXTRACTION FUNCTION
 # ============================================
 
@@ -227,7 +288,7 @@ if [ ! -f "$TOOLS_DIR/build.js" ]; then
         # fi
 
         # Copy each module's index.html
-        for module in ece-des dashboard tarjetas; do
+        for module in ece-des dashboard tarjetas traslados-aereos; do
             if [ -f "$SRC_DIR/$module/index.html" ]; then
                 case "$module" in
                     ece-des)
@@ -238,6 +299,9 @@ if [ ! -f "$TOOLS_DIR/build.js" ]; then
                         ;;
                     tarjetas)
                         cp "$SRC_DIR/$module/index.html" "$DIST_DIR/ECE-DES-Tarjetas.html"
+                        ;;
+                    traslados-aereos)
+                        cp "$SRC_DIR/$module/index.html" "$DIST_DIR/Traslados-Aereos.html"
                         ;;
                 esac
             fi
@@ -253,6 +317,20 @@ if [ ! -f "$TOOLS_DIR/build.js" ]; then
     build_simulador_html
     extract_simulador_css
 
+    # Copiar portal principal ajustando rutas
+    if [ -f "$SRC_DIR/../index.html" ]; then
+        sed 's|href="dist/|href="|g' "$SRC_DIR/../index.html" > "$DIST_DIR/index.html"
+        log "  Copied index.html to dist/ (paths adjusted)"
+    fi
+
+    # Copiar archivos HTML estáticos de public/
+    for public_html in generador_tarjetas.html guia_operativa_nunca_jamas.html; do
+        if [ -f "$SRC_DIR/../public/$public_html" ]; then
+            cp "$SRC_DIR/../public/$public_html" "$DIST_DIR/$public_html"
+            log "  Copied public/$public_html to dist/"
+        fi
+    done
+
 else
     # Usar build.js existente
     log "Ejecutando build.js..."
@@ -264,6 +342,25 @@ else
     bundle_simulador_js
     build_simulador_html
     extract_simulador_css
+
+    # Copiar portal principal ajustando rutas
+    if [ -f "$SRC_DIR/../index.html" ]; then
+        sed 's|href="dist/|href="|g' "$SRC_DIR/../index.html" > "$DIST_DIR/index.html"
+        log "  Copied index.html to dist/ (paths adjusted)"
+    fi
+
+    # Copiar archivos HTML estáticos de public/
+    for public_html in generador_tarjetas.html guia_operativa_nunca_jamas.html; do
+        if [ -f "$SRC_DIR/../public/$public_html" ]; then
+            cp "$SRC_DIR/../public/$public_html" "$DIST_DIR/$public_html"
+            log "  Copied public/$public_html to dist/"
+        fi
+    done
+fi
+
+# Build traslados aereos solo en build alternativo (build.js ya lo genera inline)
+if [ ! -f "$TOOLS_DIR/build.js" ]; then
+    build_traslados_aereos
 fi
 
 # Minificar HTML si es production
@@ -313,17 +410,18 @@ echo ""
 
 # Verificar archivos HTML críticos
 CRITICAL_FILES=(
-    "dist/index.html"
-    "dist/ECE-DES.html"
-    "dist/ECE-DES-Dashboard.html"
+    "$DIST_DIR/index.html"
+    "$DIST_DIR/ECE-DES.html"
+    "$DIST_DIR/ECE-DES-Dashboard.html"
+    "$DIST_DIR/Traslados-Aereos.html"
 )
 
 for file in "${CRITICAL_FILES[@]}"; do
     if [ -f "$file" ]; then
         SIZE=$(du -h "$file" | cut -f1)
-        echo -e "  ${GREEN}✓${NC} $file ($SIZE)"
+        echo -e "  ${GREEN}✓${NC} $(basename "$file") ($SIZE)"
     else
-        echo -e "  ${RED}✗${NC} $file (NO ENCONTRADO)"
+        echo -e "  ${RED}✗${NC} $(basename "$file") (NO ENCONTRADO)"
     fi
 done
 
